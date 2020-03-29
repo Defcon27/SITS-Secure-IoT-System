@@ -1,0 +1,1 @@
+#message = bytes(int('0x'+N_hex, 16))
