@@ -6,8 +6,16 @@ def binaryToDecimal(n):
     return int(n, 2)
 
 
+def hexToDecimal(n):
+    return int(n, 16)
+
+
 def decimalToBinary(n):
     return bin(n).replace("0b", "")
+
+
+def decimalToHex(n):
+    return hex(n).replace("0x", "")
 
 
 def XNOR(m, n):                                          # created new function for XNOR
@@ -198,17 +206,25 @@ def charToBits(chars):
 
 def bitsToChar(bits):
     char = []
-    for b in range(0, len(bits)-8, 8):
+    for b in range(0, len(bits), 8):
         asc_bits = bits[b:b+8]
-        asc = ((binaryToDecimal(asc_bits)+33) % 126)+33
-        print("ch is ", chr(asc))
+        asc = ((binaryToDecimal(asc_bits)))
         char.append(chr(asc))
 
-    chars = ""
-    for i in char:
-        chars = chars+i
+    C = ''.join(char)
+    return C
 
-    return chars
+
+def bitsToHex(bits):
+    Hex_ = []
+    for b in range(0, len(bits), 4):
+        bit = bits[b:b+4]
+        dec = binaryToDecimal(bit)
+        Hex = decimalToHex(dec)
+        Hex_.append(Hex)
+
+    H = ''.join(Hex_)
+    return H
 
 
 P = {0: 3, 1: 15, 2: 14, 3: 0, 4: 5, 5: 4, 6: 11, 7: 12,
@@ -247,11 +263,11 @@ def sit_keygen(password):
     K4 = Key4(Km4)
     K5 = Key5(K1, K2, K3, K4)
 
-    print('Key1:', K1)
-    print('Key2:', K2)
-    print('Key3:', K3)
-    print('Key4:', K4)
-    print('Key5:', K5)
+    # print('Key1:', K1)
+    # print('Key2:', K2)
+    # print('Key3:', K3)
+    # print('Key4:', K4)
+    # print('Key5:', K5)
 
     return [K1, K2, K3, K4, K5]
 
@@ -263,7 +279,8 @@ def sit_encrypt(message, keys):
     K4 = keys[3]
     K5 = keys[4]
 
-    chunks1 = []  # Key: 0101001000010101010101000100100101001010111110110001000100100101
+    chunks1 = []
+    # Key: 0101001000010101010101000100100101001010111110110001000100100101
     # Input: 0101001000010101010101000100100101001010111110110001000101101100
     message = charToBits(message)
     # Cipher: 0010001011100110111000001111011110101001001101101011001010000101
@@ -310,31 +327,28 @@ def sit_encrypt(message, keys):
     y5.append(y4[2])
     F = ''.join(y5)
     cipher = F
-    print('The cipher text:', cipher)
+    cipher_hex = bitsToHex(cipher)
+    #print('The cipher text:', cipher)
 
-    return cipher
+    return cipher_hex
 
 
-def sit_decrypt(y4, keys):
+def sit_decrypt(cipher_hex, keys):
+    cipher = hexToBits(cipher_hex)
+
     K1 = keys[0]
     K2 = keys[1]
     K3 = keys[2]
     K4 = keys[3]
     K5 = keys[4]
 
-    # Py0 = y4[1]
-    # Py1 = y4[0]
-    # Py2 = y4[3]
-    # Py3 = y4[2]
-
-    Py0 = y4[:16]
-    Py1 = y4[16:32]
-    Py2 = y4[32:48]
-    Py3 = y4[48:]
+    Py0 = cipher[:16]
+    Py1 = cipher[16:32]
+    Py2 = cipher[32:48]
+    Py3 = cipher[48:]
 
     inplist1 = [Py0, Py1, Py2, Py3]
 
-    # print(inplist1)
     def Round2(elem2, key1):
         thrlist2 = []
         o3 = XNOR(elem2[0], key1)
@@ -369,11 +383,30 @@ def sit_decrypt(y4, keys):
     F = ''.join(q5)
     message = bitsToChar(F)
 
+    # return message
+    #print('The decrypted input text:', F)
     return message
-    print('The decrypted input text:', message)
 
 
-# keys = sit_keygen("aaaabbbb")
-# cipher = sit_encrypt("aaaabbbb", keys)
-# print(bitsToChar(cipher))
-print(b'a')
+def hexToBits(hexs):
+    SIZE = 4
+    chunks = []
+    for h in hexs:
+        dec = hexToDecimal(h)
+        bit = decimalToBinary(dec)
+        rem = (SIZE - len(bit)) % SIZE
+        for i in range(rem):
+            bit = "0"+bit
+
+        chunks.append(bit)
+
+    bits = ''.join(chunks)
+    return bits
+
+
+print("input abcdefgh")
+keys = sit_keygen("aaaabbbb")
+cipher = sit_encrypt("this is ", keys)
+print("cipher ", cipher)
+msg = sit_decrypt(cipher, keys)
+print("message ", msg)
