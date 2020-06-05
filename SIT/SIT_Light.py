@@ -227,6 +227,22 @@ def bitsToHex(bits):
     return H
 
 
+def hexToBits(hexs):
+    SIZE = 4
+    chunks = []
+    for h in hexs:
+        dec = hexToDecimal(h)
+        bit = decimalToBinary(dec)
+        rem = (SIZE - len(bit)) % SIZE
+        for i in range(rem):
+            bit = "0"+bit
+
+        chunks.append(bit)
+
+    bits = ''.join(chunks)
+    return bits
+
+
 P = {0: 3, 1: 15, 2: 14, 3: 0, 4: 5, 5: 4, 6: 11, 7: 12,
      8: 13, 9: 10, 10: 9, 11: 6, 12: 7, 13: 8, 14: 2, 15: 1}
 
@@ -386,22 +402,6 @@ def sit_decrypt(cipher_hex, keys):
     # return message
     #print('The decrypted input text:', F)
     return message
-
-
-def hexToBits(hexs):
-    SIZE = 4
-    chunks = []
-    for h in hexs:
-        dec = hexToDecimal(h)
-        bit = decimalToBinary(dec)
-        rem = (SIZE - len(bit)) % SIZE
-        for i in range(rem):
-            bit = "0"+bit
-
-        chunks.append(bit)
-
-    bits = ''.join(chunks)
-    return bits
 
 
 # print("input abcdefgh")

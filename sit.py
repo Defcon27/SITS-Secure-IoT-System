@@ -30,7 +30,6 @@ with open('C://Users/subha/Desktop/Cyber/db/data.txt', 'r') as f:
         elif len(data) == 0:
             break
 
-        # print(data)
         cipher = sit_encrypt(data, keys)
         # print(cipher)
         cipher_txt.append(cipher)
