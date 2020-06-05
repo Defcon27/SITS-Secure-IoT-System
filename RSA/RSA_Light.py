@@ -48,7 +48,7 @@ class RSA_LightWeight:
             p = 0
             while not is_prime(p):
                 p = random.getrandbits(length)
-                print(p)
+                # print(p)
 
             return p
 
@@ -117,10 +117,10 @@ class RSA_LightWeight:
         return message
 
 
-rsa = RSA_LightWeight()
-k_pub, k_prv = rsa.rsalight_keygen()
-print(k_pub, k_prv)
-cipher = rsa.rsalight_encrypt(100000, k_pub)
-print(cipher)
-message = rsa.rsalight_decrypt(cipher, k_prv)
-print(message)
+# rsa = RSA_LightWeight()
+# k_pub, k_prv = rsa.rsalight_keygen()
+# print(k_pub, k_prv)
+# cipher = rsa.rsalight_encrypt(100000, k_pub)
+# print(cipher)
+# message = rsa.rsalight_decrypt(cipher, k_prv)
+# print(message)

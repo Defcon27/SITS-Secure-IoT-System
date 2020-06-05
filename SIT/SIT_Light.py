@@ -404,9 +404,9 @@ def hexToBits(hexs):
     return bits
 
 
-print("input abcdefgh")
-keys = sit_keygen("aaaabbbb")
-cipher = sit_encrypt("this is ", keys)
-print("cipher ", cipher)
-msg = sit_decrypt(cipher, keys)
-print("message ", msg)
+# print("input abcdefgh")
+# keys = sit_keygen("aaaabbbb")
+# cipher = sit_encrypt("this is ", keys)
+# print("cipher ", cipher)
+# msg = sit_decrypt(cipher, keys)
+# print("message ", msg)
