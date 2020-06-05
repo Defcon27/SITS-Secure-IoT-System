@@ -62,3 +62,22 @@ def TOTP_generator():
 #     print("Token : ", TOTP_generator())
 #     time.sleep(30)
 #     continue
+
+
+time_start = time.time()
+seconds = 30
+
+print("\nGenerating T-OTP ...........\n\n")
+while True:
+    try:
+        totp = TOTP_generator()
+        sys.stdout.write(
+            "\rT-OTP is {otp} valid for {seconds} Seconds".format(otp=totp, seconds=seconds))
+        sys.stdout.flush()
+        time.sleep(1)
+        seconds = seconds-1  # int(time.time() - time_start) - minutes * 60
+        if seconds == -1:
+            seconds = 30
+            print("\nT-OTP expired\n")
+    except KeyboardInterrupt:
+        break

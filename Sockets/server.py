@@ -6,12 +6,10 @@ HEADER_SIZE = 10
 
 PORT = 2727
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('183.82.155.135', PORT))
+s.bind((socket.gethostname(), PORT))
 s.listen(5)
+print("Server is initialized")
 print("Server is running at ", PORT)
-
-data = {1: "hithere",
-        2: "go away"}
 
 
 def send_msg_recv(data):
@@ -19,8 +17,9 @@ def send_msg_recv(data):
 
     while True:
         clientsocket, address = s.accept()
-        print("Connection with " + str(address) + " is established")
-        data = input()
+        #print("Connection with " + str(address) + " is established")
+        print("Comm. with "+str(address)+" occured")
+        #data = input()
         msg = pickle.dumps(data)
         msg = bytes(f"{len(msg):<{HEADER_SIZE}}", "utf-8")+msg
         clientsocket.send(msg)
@@ -30,10 +29,9 @@ def send_msg_recv(data):
 
         break
         # clientsocket.close()
-
     return resp
 
 
-while True:
-    resp = send_msg_recv(data)
-    print(resp)
+# while True:
+#     resp = send_msg_recv(data)
+#     print(resp)

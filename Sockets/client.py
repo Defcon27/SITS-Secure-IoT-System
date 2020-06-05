@@ -8,7 +8,7 @@ send_msg = "defcon"
 
 def recv_msg_send(reply_msg):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(('183.82.155.135', 2727))
+    s.connect((socket.gethostname(), 2727))
 
     recv_msg = ""
 
