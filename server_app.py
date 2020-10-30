@@ -4,8 +4,28 @@ from Hashing.hash import hashmsg
 from RSA.RSA_Light import RSA_LightWeight
 
 
+# Securing comm. channel using RSA
+def secureChannel(PUBLIC_KEYS):
+
+    au = "#SCL00"
+    cnf = send_msg_recv(au)
+    if cnf == "CNF":
+        cnf = send_msg_recv(PUBLIC_KEYS)
+    if cnf == "RECV":
+        print("\nPublic Keys successfully published\n")
+    return
+
+
+# RSA Light Decryption
+def decrypt(cipher_h, RSA, PRIVATE_KEYS):
+
+    cipher = int(cipher_h, 16)
+    plain = RSA.rsalight_decrypt(cipher, PRIVATE_KEYS)
+    return plain
+
+
 # Authentication
-def auth():
+def auth(RSA, PRIVATE_KEYS):
     wel = "***Welcome to SITS-Secure IoT System Server***\n\nEnter Username"
     resp = send_msg_recv(wel)
     user = resp
@@ -26,26 +46,29 @@ def auth():
         print("User Authentication Successful")
         succ = "\nTwo-Factor Authentication\nEnter the Generated T-OTP"
         resp = send_msg_recv(succ)
-        topt_cl = resp
+        cipher_h = resp
+        print("\nT-OTP Encrypted ", cipher_h)
+        totp_cl = decrypt(cipher_h, RSA, PRIVATE_KEYS)
+        print("\nT-OTP Decrypted on the server-side", totp_cl, "\n")
         totp_svr = TOTP_generator()
-        print("T-OTP generated on the server-side", totp_svr)
+        print("T-OTP generated on the server-side", totp_svr, "\n")
 
-        if int(topt_cl) == int(totp_svr):
+        if int(totp_cl) == int(totp_svr):
             msg = "\nTwo-Factor Authentication Successful\nUser has been successfully Authenticated"
             resp = send_msg_recv(msg)
         else:
             msg = "Two-Factor Authentication Failed\nAccess is Denied"
             resp = send_msg_recv(msg)
-            reauth()
+            reauth(RSA, PRIVATE_KEYS)
 
     else:
         fail = "Wrong Username or Password Couldn't log in"
         resp = send_msg_recv(fail)
-        reauth()
+        reauth(RSA, PRIVATE_KEYS)
 
 
-def reauth():
-    # Authentication
+# Re-Authentication
+def reauth(RSA, PRIVATE_KEYS):
     wel = "Credentials incorrect\n\nEnter Username"
     resp = send_msg_recv(wel)
     user = resp
@@ -53,7 +76,7 @@ def reauth():
     try:
         file_hdl = open("db/pass/"+user+".txt")
     except IOError:
-        reauth()
+        reauth(RSA, PRIVATE_KEYS)
 
     pas = "\nEnter Password"
     resp = send_msg_recv(pas)
@@ -66,45 +89,33 @@ def reauth():
         print("User Authentication Successful")
         succ = "\nTwo-Factor Authentication\nEnter the Generated T-OTP"
         resp = send_msg_recv(succ)
-        topt_cl = resp
+        cipher_h = resp
+        print("\nT-OTP Encrypted ", cipher_h)
+        totp_cl = decrypt(cipher_h, RSA, PRIVATE_KEYS)
+        print("\nT-OTP Decrypted on the server-side", totp_cl, "\n")
         totp_svr = TOTP_generator()
         print("T-OTP generated on the server-side", totp_svr)
 
-        if int(topt_cl) == int(totp_svr):
+        if int(totp_cl) == int(totp_svr):
             msg = "\nTwo-Factor Authentication Successful\nUser has been successfully Authenticated"
             resp = send_msg_recv(msg)
         else:
             msg = "Two-Factor Authentication Failed\nAccess is Denied"
             resp = send_msg_recv(msg)
-            reauth()
+            reauth(RSA, PRIVATE_KEYS)
 
     else:
         fail = "Wrong Username or Password Couldn't log in"
         resp = send_msg_recv(fail)
-        reauth()
-
-
-# Securing comm. channel using RSA
-def secureChannel(PUBLIC_KEYS):
-
-    au = "#SCL00"
-    cnf = send_msg_recv(au)
-    if cnf == "CNF":
-        cnf = send_msg_recv(PUBLIC_KEYS)
-
-    if cnf == "RECV":
-        print("\nPublic Keys successfully published and received")
-
-    return
+        reauth(RSA, PRIVATE_KEYS)
 
 
 if __name__ == "__main__":
 
     RSA = RSA_LightWeight()
     PUBLIC_KEYS, PRIVATE_KEYS = RSA.rsalight_keygen()
+    print("\nPublic Key Generated: ", PUBLIC_KEYS, "\n")
 
     secureChannel(PUBLIC_KEYS)
 
-    print(PUBLIC_KEYS, PRIVATE_KEYS)
-
-    # auth()
+    auth(RSA, PRIVATE_KEYS)

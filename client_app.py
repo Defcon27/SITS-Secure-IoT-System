@@ -1,3 +1,4 @@
+from Sockets.client import recv_msg_send
 from RSA.RSA_Light import RSA_LightWeight
 import socket
 import pickle
@@ -42,8 +43,10 @@ if __name__ == "__main__":
 
     # AUTH Code to secure comm. link
     auth_codes = "#SCL00"
-
     au = return_recv_msg_send("CNF")
     PUBLIC_KEYS = return_recv_msg_send("RECV")
 
-    print(PUBLIC_KEYS)
+    print("\nPublic Key Received: ", PUBLIC_KEYS, "\n")
+
+    while True:
+        recv_msg_send(RSA, PUBLIC_KEYS)
