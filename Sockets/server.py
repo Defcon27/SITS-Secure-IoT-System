@@ -28,7 +28,7 @@ def send_msg_recv(data):
         resp = client_resp
 
         break
-        # clientsocket.close()
+        clientsocket.close()
     return resp
 
 
