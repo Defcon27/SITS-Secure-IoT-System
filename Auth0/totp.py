@@ -1,10 +1,8 @@
 import datetime as dt
 import time
-import sys
 import math
 import hmac
 import hashlib
-import struct
 
 
 def get_UnixEpox_time():
@@ -56,9 +54,3 @@ def TOTP_generator():
     token_n = 6
     token = (hmac_offset_int) % (10**token_n)
     return token
-
-
-# while 1:
-#     print("Token : ", TOTP_generator())
-#     time.sleep(30)
-#     continue
