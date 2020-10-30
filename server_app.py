@@ -11,7 +11,7 @@ def auth():
     user = resp
 
     try:
-        file_hdl = open("C://Users/subha/Desktop/Cyber/db/pass/"+user+".txt")
+        file_hdl = open("db/pass/"+user+".txt")
     except IOError:
         reauth()
 
@@ -20,7 +20,7 @@ def auth():
     user_pass = resp
     user_pass_h = hashmsg(user_pass)
 
-    file_hdl = open("C://Users/subha/Desktop/Cyber/db/pass/"+user+".txt")
+    file_hdl = open("db/pass/"+user+".txt")
     file_pass_h = file_hdl.readline()
     if user_pass_h == file_pass_h:
         print("User Authentication Successful")
@@ -51,7 +51,7 @@ def reauth():
     user = resp
 
     try:
-        file_hdl = open("C://Users/subha/Desktop/Cyber/db/pass/"+user+".txt")
+        file_hdl = open("db/pass/"+user+".txt")
     except IOError:
         reauth()
 
@@ -60,7 +60,7 @@ def reauth():
     user_pass = resp
     user_pass_h = hashmsg(user_pass)
 
-    file_hdl = open("C://Users/subha/Desktop/Cyber/db/pass/"+user+".txt")
+    file_hdl = open("db/pass/"+user+".txt")
     file_pass_h = file_hdl.readline()
     if user_pass_h == file_pass_h:
         print("User Authentication Successful")
@@ -84,4 +84,27 @@ def reauth():
         reauth()
 
 
-auth()
+# Securing comm. channel using RSA
+def secureChannel(PUBLIC_KEYS):
+
+    au = "#SCL00"
+    cnf = send_msg_recv(au)
+    if cnf == "CNF":
+        cnf = send_msg_recv(PUBLIC_KEYS)
+
+    if cnf == "RECV":
+        print("\nPublic Keys successfully published and received")
+
+    return
+
+
+if __name__ == "__main__":
+
+    RSA = RSA_LightWeight()
+    PUBLIC_KEYS, PRIVATE_KEYS = RSA.rsalight_keygen()
+
+    secureChannel(PUBLIC_KEYS)
+
+    print(PUBLIC_KEYS, PRIVATE_KEYS)
+
+    # auth()
