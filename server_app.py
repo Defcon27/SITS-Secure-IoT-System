@@ -1,5 +1,5 @@
 from Sockets.server import send_msg_recv
-from Auth0.totp import TOTP_generator
+from Auth0.totp_client import TOTP_generator
 from Hashing.hash import hashmsg
 from RSA.RSA_Light import RSA_LightWeight
 
