@@ -18,7 +18,7 @@ for k in range(len(keys)):
 print("\nData Encryption")
 cipher_txt = []
 SIZE = 8
-with open('C://Users/subha/Desktop/Cyber/db/data.txt', 'r') as f:
+with open('db/data.txt', 'r') as f:
     data = f.read(SIZE)
     while len(data) > 0:
         data = f.read(SIZE)
