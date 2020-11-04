@@ -1,5 +1,5 @@
 from Sockets.server import send_msg_recv
-from Auth0.totp_client import TOTP_generator
+from Auth0.totp import TOTP_generator
 from Hashing.hash import hashmsg
 from RSA.RSA_Light import RSA_LightWeight
 
@@ -46,11 +46,11 @@ def auth(RSA, PRIVATE_KEYS):
         print("User Authentication Successful")
         succ = "\nTwo-Factor Authentication\nEnter the Generated T-OTP"
         resp = send_msg_recv(succ)
+        totp_svr = TOTP_generator()
         cipher_h = resp
         print("\nT-OTP Encrypted ", cipher_h)
         totp_cl = decrypt(cipher_h, RSA, PRIVATE_KEYS)
         print("\nT-OTP Decrypted on the server-side", totp_cl, "\n")
-        totp_svr = TOTP_generator()
         print("T-OTP generated on the server-side", totp_svr, "\n")
 
         if int(totp_cl) == int(totp_svr):
