@@ -1,5 +1,6 @@
 import datetime as dt
 import time
+import sys
 import math
 import hmac
 import hashlib
@@ -51,6 +52,6 @@ def TOTP_generator():
     # print(hmac_offset)
     hmac_offset_int = int(hmac_offset, 16)
     # print(hmac_offset_int)
-    token_n = 6
+    token_n = 4
     token = (hmac_offset_int) % (10**token_n)
     return token

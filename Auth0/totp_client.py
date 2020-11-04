@@ -1,14 +1,9 @@
 import datetime as dt
 import time
 import sys
-import subprocess
 import math
 import hmac
 import hashlib
-
-
-machine_IMEI = subprocess.check_output(
-    'wmic csproduct get uuid').decode().split('\n')[1].strip()
 
 
 def get_UnixEpox_time():
@@ -46,24 +41,18 @@ def TOTP_generator():
     key = bytes(12345)
 
     hmac_sha1 = hmac.new(key, message, digestmod=hashlib.sha1)
-    hmac_digest_unix = hmac_sha1.hexdigest()
+    hmac_digest = hmac_sha1.hexdigest()
 
-    message = bytes(int(machine_IMEI[:8], 16))
-    hmac_sha1 = hmac.new(key, message, digestmod=hashlib.sha1)
-    hmac_digest_imei = hmac_sha1.hexdigest()
-
-    offset_hex = hmac_digest_unix[39:]
-    offset_hex_imei = hmac_digest_imei[-1:]
-
+    offset_hex = hmac_digest[39:]
+    # print(offset_hex)
     offset_num = int(offset_hex, 16)
-    offset_num += int(offset_hex_imei, 16)
     # print(offset_num)
 
-    hmac_offset = (hmac_digest_unix[offset_num:(offset_num+8)])
+    hmac_offset = (hmac_digest[offset_num:(offset_num+8)])
     # print(hmac_offset)
     hmac_offset_int = int(hmac_offset, 16)
     # print(hmac_offset_int)
-    token_n = 6
+    token_n = 4
     token = (hmac_offset_int) % (10**token_n)
     return token
 
@@ -71,19 +60,17 @@ def TOTP_generator():
 time_start = time.time()
 seconds = 30
 
-print("\nGenerating T-OTP for MachineID ", machine_IMEI, "\n\n")
+print("\nGenerating T-OTP ...........\n\n")
 while True:
     try:
         totp = TOTP_generator()
-        while (seconds != 0):
-            sys.stdout.write(
-                "\rT-OTP is {otp} valid for {seconds} Seconds".format(otp=totp, seconds=seconds))
-            sys.stdout.flush()
-            time.sleep(1)
-            seconds = seconds-1  # int(time.time() - time_start) - minutes * 60
-            if seconds == 0:
-                print("\nT-OTP expired\n")
-                break
-        seconds = 30
+        sys.stdout.write(
+            "\rT-OTP is {otp} valid for {seconds} Seconds".format(otp=totp, seconds=seconds))
+        sys.stdout.flush()
+        time.sleep(1)
+        seconds = seconds-1  # int(time.time() - time_start) - minutes * 60
+        if seconds == 0:
+            seconds = 30
+            print("\nT-OTP expired\n")
     except KeyboardInterrupt:
         break
