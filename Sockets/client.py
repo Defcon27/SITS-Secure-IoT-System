@@ -40,7 +40,7 @@ def recv_msg_send(RSA=None, PUBLIC_KEYS=None):
                 break
         send_msg = input()
         if send_msg[-4:] == "#ENC":
-            send_msg = encrypt(int(send_msg[:6]), RSA, PUBLIC_KEYS)
+            send_msg = encrypt(int(send_msg[:4]), RSA, PUBLIC_KEYS)
             print("\nEncrypted OTP ", send_msg, "\n")
 
         s.send(bytes(send_msg, "utf-8"))
