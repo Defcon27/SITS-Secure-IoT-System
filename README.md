@@ -1,10 +1,10 @@
 # SITS-Secure-IoT-System
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/Defcon27/SITS-Secure-IoT-System?color=green&logo=git&logoColor=white&style=flat-square)](https://github.com/Defcon27/SITS-Secure-IoT-System)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Defcon27/SITS-Secure-IoT-System?logo=python&logoColor=white&style=flat-square)
-![GitHub repo size](https://img.shields.io/github/repo-size/Defcon27/SITS-Secure-IoT-System?color=red&logo=github&logoColor=white&style=flat-square)
-![GitHub stars](https://img.shields.io/github/stars/Defcon27/SITS-Secure-IoT-System?logo=github&style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/Defcon27/SITS-Secure-IoT-System?color=yellow&logo=github&style=flat-square)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Defcon27/SITS-Secure-IoT-System?label=Last%20commit&color=green&logo=git&logoColor=white&style=flat-square)](https://github.com/Defcon27/SITS-Secure-IoT-System)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Defcon27/SITS-Secure-IoT-System?label=Code%20size&logo=python&logoColor=white&style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/Defcon27/SITS-Secure-IoT-System?label=Repo%20size&color=red&logo=github&logoColor=white&style=flat-square)
+![GitHub stars](https://img.shields.io/github/stars/Defcon27/SITS-Secure-IoT-System?label=Stars&logo=github&style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/Defcon27/SITS-Secure-IoT-System?label=Issues&color=yellow&logo=github&style=flat-square)
 
 
 #### SITS is a secure IoT system that implements lightweight cryptography which performs strong security mechanism, encryption or decryption with low power applications. Here we apply the lightweight cryptographic algorithms in order to achieve end-to-end security and with lower power consumption in these devices. These lightweight algorithms are designed for IoT to deal with the security and resource utilization challenges.
@@ -28,7 +28,7 @@ This project was prepared was prepared in such a way to as to meet the above req
 
 MODULES
 
-<img src='Docs/totp.png' width=80% height=80%/>
+<img align="middle" src='Docs/arch.png' width=40% height=80%/>
 
 TOTP
 
