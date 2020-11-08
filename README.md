@@ -7,7 +7,24 @@
 ![GitHub issues](https://img.shields.io/github/issues/Defcon27/SITS-Secure-IoT-System?label=Issues&color=yellow&logo=github&style=flat-square)
 
 
+
 #### SITS is a secure IoT system that implements lightweight cryptography which performs strong security mechanism, encryption or decryption with low power applications. Here we apply the lightweight cryptographic algorithms in order to achieve end-to-end security and with lower power consumption in these devices. These lightweight algorithms are designed for IoT to deal with the security and resource utilization challenges.
+
+
+<br>
+
+### 🖥️ Technologies and Tools used
+![Python Badge](http://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white)
+![Python Badge](http://img.shields.io/badge/-Sockets-00ADD8?style=flat)
+![T-OTP](http://img.shields.io/badge/-T%20OTP-6CAC4D?style=flat)
+![RSA](http://img.shields.io/badge/-RSA%20Lightweight-red?style=flat)
+![SIT](http://img.shields.io/badge/-SIT%20Encryption-yellow?style=flat)
+
+
+
+
+<br>
+
 
 ## ABSTRACT
 The Internet of Things (IoT) being a promising technology of the future is expected to connect billions of devices. With the passage of time more and more devices like wearables, home automation devices, industrial automation devices are getting connected to the internet. The sophisticated chips and sensors that are embedded in these devices collect valuable data. These devices will create a huge and complex network where a massive amount of data is communicated throughout the network. This process of sharing such large amount of data begins with the devices themselves and this increases number of communications which generates mountains of data and the security of data can be a threat. To adopt the IoT technology it is necessary to build the confidence among the users about its security and privacy that it will not cause any threat to their data integrity, confidentiality and authority. 
@@ -62,4 +79,4 @@ SIT ENCRYPTION
 
 <img src='Docs/sit.png' width=80% height=80%/>
 
-[Full Report Here](/Docs/Project%20Report.pdf)
+[📃 Project Report Here](/Docs/Project%20Report.pdf)
