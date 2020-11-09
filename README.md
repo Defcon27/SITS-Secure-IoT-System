@@ -20,7 +20,8 @@
 ![RSA](http://img.shields.io/badge/-RSA%20Lightweight-red?style=flat)
 ![SIT](http://img.shields.io/badge/-SIT%20Encryption-yellow?style=flat)
 
-
+#### 📊 Get Presentation Here  
+[![PPT](https://img.shields.io/badge/PRESENTATION-D83B01.svg?&style=for-the-badge&logo=microsoft-powerpoint&logoColor=white)](https://drive.google.com/file/d/1q5moPvQANFfLCdXQnxrjpR_sivpKVaB3/view?usp=sharing)
 
 
 <br>
